@@ -1,0 +1,137 @@
+/* ═══════════════════════════════════════════════════════════
+   Mechanical-engineering theme layer — loads AFTER style.css.
+   Delete this file + its <link> in index.html to revert instantly.
+   Palette: graphite base · brass accent · blueprint-cyan linework
+   ═══════════════════════════════════════════════════════════ */
+:root{
+  --bg-primary:#0a0d11; --bg-secondary:#0e1318; --bg-card:#131a21; --bg-card-hover:#18212a;
+  --text-secondary:#a6adb7; --text-muted:#7d8795;
+  --accent:#d4a55a; --accent-dim:#a8803f; --accent-glow:rgba(212,165,90,.12);
+  --border-accent:rgba(212,165,90,.28);
+  --cad:#6fb3d2; --cad-dim:rgba(111,179,210,.22);
+}
+
+/* Focus visibility (accessibility) */
+a:focus-visible,button:focus-visible{outline:2px solid var(--cad);outline-offset:3px}
+
+/* ── Hero: gear train + rotor drawn as a CAD sheet ── */
+.hero-mech{position:absolute;right:-9%;top:54%;width:min(54vw,640px);transform:translateY(-50%);
+  color:var(--accent);opacity:.3;pointer-events:none}
+.hero-mech .cl{stroke:var(--cad);stroke-width:1;stroke-dasharray:14 4 2 4;opacity:.7}
+.hero-mech .thin{stroke-width:1;opacity:.7}
+.hero-mech g{transform-box:fill-box;transform-origin:center}
+.g-a{animation:spin 64s linear infinite}
+.g-b{animation:spin 34.7s linear infinite reverse}  /* 24:13 tooth ratio */
+.g-r{animation:spin 22s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-name .accent{background:linear-gradient(100deg,var(--accent),#ecd2a0 60%,var(--accent));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-stats{border-top:2px solid var(--accent);backdrop-filter:blur(6px)}
+.stat-n{font-variant-numeric:tabular-nums}
+
+/* ── Section rhythm: ruler ticks + faint drawing grid ── */
+.section{position:relative}
+.section::before{content:"";position:absolute;top:0;left:0;right:0;height:10px;pointer-events:none;
+  background:repeating-linear-gradient(90deg,var(--cad-dim) 0 1px,transparent 1px 24px),
+             repeating-linear-gradient(90deg,var(--cad-dim) 0 1px,transparent 1px 120px) 0 0/100% 10px;
+  -webkit-mask:linear-gradient(#000,transparent);mask:linear-gradient(#000,transparent)}
+.section-dark{background-image:linear-gradient(rgba(111,179,210,.035) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(111,179,210,.035) 1px,transparent 1px);background-size:48px 48px}
+.section-label{display:flex;align-items:center;gap:.8rem}
+.section-label::after{content:"";width:56px;height:1px;background:var(--cad);opacity:.6}
+.section-label.light::after{background:rgba(13,14,16,.5)}
+
+/* ── Navigation ── */
+.nav-links a:not(.nav-cta){position:relative}
+.nav-links a:not(.nav-cta)::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;
+  background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.nav-links a:not(.nav-cta):hover::after,.nav-links a.active::after{transform:scaleX(1)}
+
+/* ── Buttons ── */
+.btn{position:relative;overflow:hidden}
+.btn-primary:hover{box-shadow:0 8px 24px rgba(212,165,90,.28)}
+.btn-outline:hover{background:var(--accent-glow)}
+
+/* ── Projects: drawing-sheet cards with corner registration marks ── */
+.project-card{position:relative}
+.project-card::before,.project-card::after{content:"";position:absolute;width:14px;height:14px;z-index:2;
+  border:0 solid var(--accent);transition:width .3s var(--ease),height .3s var(--ease);pointer-events:none}
+.project-card::before{top:6px;left:6px;border-width:1px 0 0 1px}
+.project-card::after{bottom:6px;right:6px;border-width:0 1px 1px 0}
+.project-card:hover::before,.project-card:hover::after{width:34px;height:34px}
+.project-image{width:100%;height:auto;display:block;transition:transform .6s var(--ease)}
+.project-card:hover .project-image{transform:scale(1.035)}
+.proj-cats span{color:var(--cad);border-color:var(--cad-dim)}
+.proj-body h3{letter-spacing:-.01em}
+.filter-btn.active{box-shadow:0 0 0 3px var(--accent-glow)}
+
+/* ── Experience / education: dashed centreline, diamond nodes that turn ── */
+.exp-timeline{border-left:1px dashed var(--border-accent)}
+.exp-item::before{border-radius:1px;transform:rotate(45deg);transition:transform .5s var(--ease)}
+.exp-item:hover::before{transform:rotate(225deg)}
+.edu-item{transition:padding-left .3s var(--ease)}
+.edu-item:hover{padding-left:.6rem}
+.edu-year{color:var(--cad)}
+
+/* ── Publications, skills, leadership ── */
+.pub-item{border-left:2px solid transparent;padding-left:1.25rem;transition:border-color .3s,background .3s}
+.pub-item:hover{border-left-color:var(--accent);background:linear-gradient(90deg,var(--accent-glow),transparent 40%)}
+.sg-icon{display:grid;place-items:center;width:44px;height:44px;border:1px solid var(--cad-dim);
+  border-radius:50%;filter:grayscale(1) brightness(1.5);font-size:1.15rem;
+  background:radial-gradient(circle,var(--cad-dim),transparent 70%)}
+.skill-group{position:relative;border-top:2px solid var(--cad-dim);transition:border-color .3s,transform .3s var(--ease)}
+.skill-group:hover{border-top-color:var(--accent);transform:translateY(-3px)}
+.skill-pills span{border-radius:1px;border-left:2px solid var(--cad-dim)}
+.lead-item,.cert-item{transition:border-color .3s,transform .3s var(--ease)}
+.lead-item:hover,.cert-item:hover{transform:translateY(-3px)}
+.contact-card:hover{border-color:var(--cad)}
+
+/* ── Responsive ── */
+@media (max-width:768px){
+  .hero-mech{right:-30%;width:90vw;opacity:.18}
+  .section::before{height:8px}
+}
+/* ── Motion safety ── */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+}
+
+/* ── Outcome chip on each project card ── */
+.proj-outcome{align-self:flex-start;font-family:var(--font-mono);font-size:.78rem;line-height:1.45;color:var(--text-primary);
+  background:var(--accent-glow);border:1px solid var(--border-accent);border-left:3px solid var(--accent);
+  padding:.4rem .75rem;border-radius:1px;margin:0}
+
+/* ── Nav fits 8 links on tablets ── */
+@media (min-width:769px) and (max-width:1100px){
+  .nav-links{gap:1.1rem}.nav-links a{font-size:.68rem;letter-spacing:.06em}
+}
+/* ── Mobile: stats grid, scrolling filters, 44px tap targets ── */
+@media (max-width:768px){
+  .hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);width:100%}
+  .stat-sep{display:none}
+  .stat{background:var(--bg-card);padding:.9rem .8rem}
+  .stat:last-child{grid-column:1/-1}
+  .filter-bar{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-right:-1.2rem;padding-bottom:4px}
+  .filter-bar::-webkit-scrollbar{display:none}
+  .filter-btn{flex:0 0 auto;min-height:44px}
+  .nav-links a{display:flex;align-items:center;min-height:44px}
+  .btn,.link-pill,.proj-toggle{min-height:44px}
+  .proj-toggle{display:flex;align-items:center}
+  .hamburger{min-width:44px;min-height:44px;align-items:center;justify-content:center}
+}
+
+/* ── Fix: 8 nav links squeezed the logo and Resume button into wrapping ── */
+.nav-inner{max-width:1360px}
+.nav-logo,.nav-cta{white-space:nowrap;flex-shrink:0}
+.nav-cta{display:inline-flex;align-items:center}
+@media (min-width:1101px){.nav-links{gap:1.3rem}.nav-links a{letter-spacing:.07em}}
+
+/* ── Hero sits higher: content starts near the top and fits a laptop screen ── */
+#hero{align-items:flex-start;padding-top:calc(var(--nav-h) + 3vh);padding-bottom:3rem}
+.hero-name{font-size:clamp(3.2rem,min(12vw,15vh),8rem);margin-bottom:1rem}
+.hero-tag{margin-bottom:1rem}
+.hero-sub{margin-bottom:1.6rem}
+.hero-ctas{margin-bottom:2.2rem}
+.hero-mech{top:50%}
+@media (max-width:768px){#hero{padding-top:calc(var(--nav-h) + 2rem)}}
