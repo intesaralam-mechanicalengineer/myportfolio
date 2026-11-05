@@ -135,3 +135,46 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--cad);outline-offset
 .hero-ctas{margin-bottom:2.2rem}
 .hero-mech{top:50%}
 @media (max-width:768px){#hero{padding-top:calc(var(--nav-h) + 2rem)}}
+
+
+/* ═══════════════════════════════════════════════════════════
+   v3 — "Standout" layer (no HTML structure changes)
+   ═══════════════════════════════════════════════════════════ */
+
+/* Technical body face: IBM Plex Sans replaces Lora; Syne + DM Mono unchanged */
+:root{--font-body:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif}
+body{line-height:1.65}
+
+/* Drawing-sheet section numbering: SEC. 01 … 08 */
+body{counter-reset:sec}
+.section-title::before{counter-increment:sec;content:"SEC. " counter(sec,decimal-leading-zero);
+  display:block;width:max-content;margin-bottom:1rem;padding-bottom:.55rem;
+  font-family:var(--font-mono);font-size:.72rem;font-weight:400;font-style:normal;
+  letter-spacing:.22em;color:var(--cad);border-bottom:1px solid var(--cad-dim)}
+
+/* Scroll progress line (element injected by main.js) */
+.scroll-progress{position:fixed;top:0;left:0;width:100%;height:2px;z-index:1100;pointer-events:none;
+  transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,var(--cad),var(--accent))}
+
+/* Hero title block — corner of a real engineering drawing (injected by main.js) */
+.hero-titleblock{display:none;position:absolute;left:2.5rem;bottom:2rem;z-index:1;
+  font-family:var(--font-mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-muted);background:rgba(10,13,17,.65);border:1px solid var(--cad-dim);
+  backdrop-filter:blur(4px);pointer-events:none}
+.hero-titleblock div{display:grid;grid-template-columns:78px 1fr;gap:.8rem;padding:.38rem .8rem;
+  border-bottom:1px solid var(--cad-dim)}
+.hero-titleblock div:last-child{border-bottom:0}
+.hero-titleblock span{color:var(--cad)}
+.hero-titleblock b{font-weight:400;color:var(--text-secondary)}
+@media (min-width:1400px){.hero-titleblock{display:block}}
+
+/* Hero mechanism reacts to the cursor */
+.hero-mech{transition:translate .6s var(--ease)}
+
+/* Cursor-follow brass spotlight on cards (vars set by main.js) */
+.project-card,.skill-group,.lead-item,.cert-item{--mx:-400px;--my:-400px;
+  background-image:radial-gradient(340px circle at var(--mx) var(--my),rgba(212,165,90,.10),transparent 62%)}
+
+.stat-l{font-family:var(--font-mono);letter-spacing:.14em}
+
+@media (prefers-reduced-motion:reduce){.hero-mech{transition:none}}
